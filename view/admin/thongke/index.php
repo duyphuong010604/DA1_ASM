@@ -6,79 +6,7 @@
         <div class="layout-page">
             <!-- Navbar -->
 
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-                id="layout-navbar">
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="bx bx-menu bx-sm"></i>
-                    </a>
-                </div>
-
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                                aria-label="Search..." />
-                        </div>
-                    </div>
-                    <!-- /Search -->
-
-                    <ul class="navbar-nav flex-row align-items-center ms-auto">
-
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-                                data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="<?= $CONTENT_URL ?>/admin/assets/img/avatars/1.png" alt
-                                        class="w-px-40 h-auto rounded-circle" />
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="<?= $CONTENT_URL ?>/admin/assets/img/avatars/1.png" alt
-                                                        class="w-px-40 h-auto rounded-circle" />
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">John Doe</span>
-                                                <small class="text-muted">Admin</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="bx bx-user me-2"></i>
-                                        <span class="align-middle">Thông tin tài khoản</span>
-                                    </a>
-                                </li>
-
-
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="">
-                                        <i class="bx bx-power-off me-2"></i>
-                                        <span class="align-middle">Đăng xuất</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-                    </ul>
-                </div>
-            </nav>
+            
 
             <!-- / Navbar -->
 
@@ -104,9 +32,13 @@
                                         </div>
                                     </div>
                                     <span class="fw-bold d-block mb-1">Doanh thu</span>
-                                    <h3 class="card-title mb-2">$12,628</h3>
-                                    <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                        +72.80%</small>
+                                    <?php
+                                    $billSumTotal = $bill->getBy_SumTotalBill();
+                                    ?>
+                                    <h3 class="card-title mb-2">
+                                        <?= number_format($billSumTotal) ?> VNĐ
+                                    </h3>
+
                                 </div>
                             </div>
                         </div>
@@ -127,10 +59,15 @@
 
                                         </div>
                                     </div>
-                                    <span class="fw-bold d-block mb-1">Gía trị kho</span>
-                                    <h3 class="card-title mb-2">$12,628</h3>
-                                    <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                        +72.80%</small>
+                                    <span class="fw-bold d-block mb-1">Số sản phẩm đã bán</span>
+                                    <?php
+                                    $billSumQuantity = $bill->getBy_SumQuantity();
+
+                                    ?>
+                                    <h3 class="card-title mb-1">
+                                        <?= $billSumQuantity ?>
+                                    </h3>
+
                                 </div>
                             </div>
                         </div>
@@ -151,10 +88,15 @@
 
                                         </div>
                                     </div>
-                                    <span class="fw-bold d-block mb-1">Lợi nhuận</span>
-                                    <h3 class="card-title mb-2">$12,628</h3>
-                                    <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>
-                                        +72.80%</small>
+                                    <span class="fw-bold d-block mb-1">Doanh thu trung bình hàng ngày</span>
+                                    <?php
+                                    $CountbillDay = $bill->get_CountBillDay();
+                                    extract($CountbillDay);
+                                    ?>
+                                    <h3 class="card-title mb-2">
+                                        <?= number_format($billSumTotal / $TONGSONGAY) ?>
+                                    </h3>
+
                                 </div>
                             </div>
                         </div>
@@ -169,14 +111,14 @@
                                 <?php
 
                                 $dataPoints1 = array(
-                                    array("y" => 3373.64, "label" => "Germany"),
-                                    array("y" => 2435.94, "label" => "France"),
-                                    array("y" => 1842.55, "label" => "China"),
-                                    array("y" => 1828.55, "label" => "Russia"),
-                                    array("y" => 1039.99, "label" => "Switzerland"),
-                                    array("y" => 765.215, "label" => "Japan"),
-                                    array("y" => 612.453, "label" => "Netherlands")
+
                                 );
+
+                                $bangcot = $bill->get_bangcot();
+                                foreach ($bangcot as $key) {
+                                    $value = array("y" => $key['TONGTIEN'], "label" => $key['NGAY']);
+                                    array_push($dataPoints1, $value);
+                                }
 
                                 ?>
                                 <div class="card-body pt-2">
@@ -187,6 +129,12 @@
                     </div>
 
                     <div class="row mt-3">
+                        <?php
+                        $DEMUSER = $thongke->SOUSER();
+                        $DEMPRODUCT = $thongke->SOPRODUCT();
+                        $DEMCATEGORY = $thongke->SOCATEGORY();
+                        $DEMBRAND = $thongke->SOBRAND();
+                        ?>
                         <div class="col-12 col-sm-3 pt-2">
                             <div class="card">
                                 <div class="card-body">
@@ -202,7 +150,9 @@
                                         </div>
                                     </div>
                                     <span class="fw-bold d-block mb-1">Số lượng tài khoảng </span>
-                                    <h3 class="card-title mb-2">100 tài khoản</h3>
+                                    <h3 class="card-title mb-2">
+                                        <?= $DEMUSER ?> tài khoản
+                                    </h3>
 
                                 </div>
                             </div>
@@ -223,7 +173,9 @@
                                         </div>
                                     </div>
                                     <span class="fw-bold d-block mb-1">Số lượng sản phẩm</span>
-                                    <h3 class="card-title mb-2">100 sản phẩm</h3>
+                                    <h3 class="card-title mb-2">
+                                        <?= $DEMPRODUCT ?> sản phẩm
+                                    </h3>
 
                                 </div>
                             </div>
@@ -244,7 +196,9 @@
                                         </div>
                                     </div>
                                     <span class="fw-bold d-block mb-1">Số lượng loại sản phẩm</span>
-                                    <h3 class="card-title mb-2">10 loại sản phẩm</h3>
+                                    <h3 class="card-title mb-2">
+                                        <?= $DEMCATEGORY ?> loại sản phẩm
+                                    </h3>
 
                                 </div>
                             </div>
@@ -265,7 +219,9 @@
                                         </div>
                                     </div>
                                     <span class="fw-bold d-block mb-1">Số lượng thương hiệu</span>
-                                    <h3 class="card-title mb-2">10 thương hiệu</h3>
+                                    <h3 class="card-title mb-2">
+                                        <?= $DEMBRAND ?> thương hiệu
+                                    </h3>
 
                                 </div>
                             </div>
@@ -279,15 +235,20 @@
                                 </div>
                                 <!-- dứ liệu -->
                                 <?php
-
+                                
+                                
                                 $dataPoints = array(
-                                    array("label" => "Chrome", "y" => 64.02),
-                                    array("label" => "Firefox", "y" => 12.55),
-                                    array("label" => "IE", "y" => 8.47),
-                                    array("label" => "Safari", "y" => 6.08),
-                                    array("label" => "Edge", "y" => 4.29),
-                                    array("label" => "Others", "y" => 4.59)
-                                )
+                                   
+                                );
+
+                                $BANGTRON = $thongke->BANGTRON();
+                                foreach($BANGTRON as $key){
+                                    extract($key);
+                                    $value = array("label" => "$name", "y" => ($SOSANPHAM/$DEMCATEGORY)*100);
+                                    array_push($dataPoints, $value);
+                                }
+                                
+
                                     ?>
                                 <div class="card-body pt-2">
                                     <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
@@ -297,6 +258,11 @@
                     </div>
 
                     <div class="row mt-3">
+                        <?php
+                        $GIAMIN = $thongke ->GIAMIN();
+                        $GIAMAX = $thongke ->GIAMAX();
+                        $GIATB = $thongke ->GIATB();
+                        ?>
                         <div class="col-12 col-sm-4 pt-2">
                             <div class="card">
                                 <div class="card-body">
@@ -311,8 +277,31 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <span class="fw-bold d-block mb-1">Gía sản phẩm trung bình</span>
-                                    <h3 class="card-title mb-2">100.000VNĐ</h3>
+
+                                    <span class="fw-bold d-block mb-1">Giá sản phẩm trung bình</span>
+                                    <h3 class="card-title mb-2"><?=number_format($GIATB['GIA'])?> VNĐ</h3>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4 pt-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                        <div class="avatar flex-shrink-0">
+                                            <img src="<?= $CONTENT_URL ?>/admin/assets/img/icons/unicons/sigma1.png"
+                                                alt="chart success" class="rounded" />
+                                        </div>
+                                        <div class="dropdown">
+                                            <button class="btn p-0" type="button" id="cardOpt3"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <span class="fw-bold d-block mb-1">Giá sản phẩm cao nhất</span>
+                                    <h3 class="card-title mb-2"><?=number_format($GIAMAX['GIA'])?> VNĐ</h3>
+                                    <span>Tên sản phẩm: <?=$GIAMAX['name']?></span>
 
                                 </div>
                             </div>
@@ -332,29 +321,9 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <span class="fw-bold d-block mb-1">Gía sản phẩm cao nhất</span>
-                                    <h3 class="card-title mb-2">100.000VNĐ</h3>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-4 pt-2">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                        <div class="avatar flex-shrink-0">
-                                            <img src="<?= $CONTENT_URL ?>/admin/assets/img/icons/unicons/sigma1.png"
-                                                alt="chart success" class="rounded" />
-                                        </div>
-                                        <div class="dropdown">
-                                            <button class="btn p-0" type="button" id="cardOpt3"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <span class="fw-bold d-block mb-1">Gía sản phẩm thấp nhất</span>
-                                    <h3 class="card-title mb-2">100.000VNĐ</h3>
+                                    <span class="fw-bold d-block mb-1">Giá sản phẩm thấp nhất</span>
+                                    <h3 class="card-title mb-2"><?=number_format($GIAMIN['GIA'])?> VNĐ</h3>
+                                    <span>Tên sản phẩm: <?=$GIAMIN['name']?></span>
 
                                 </div>
                             </div>
@@ -414,7 +383,7 @@
             },
             data: [{
                 type: "column",
-                yValueFormatString: "#,##0.## tonnes",
+                yValueFormatString: "#,##0.## VNĐ",
                 dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
             }]
         });

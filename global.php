@@ -1,7 +1,7 @@
 <?php
 session_start();
 //Các url cần thiết cho toàn bộ website
-$ROOT_URL = "/DA1-ASM"; //sửa 
+$ROOT_URL = "/DUAN1-ASM"; //sửa 
 $VIEW_URL="$ROOT_URL/view";
 $CONTROLLER_URL = "$ROOT_URL/controller";
 $MODEL_URL = "$ROOT_URL/model";

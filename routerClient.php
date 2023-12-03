@@ -419,9 +419,7 @@ if (!isset($_SESSION['myCart'])) {
                         } else {
                             echo "tb";
                         }
-                    } else {
-                        include("view/client/thanhtoan/index.php");
-                    }
+                    } 
 
                 }
                 include("view/client/thanhtoan/index.php");

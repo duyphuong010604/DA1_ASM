@@ -25,6 +25,8 @@ include "model/comments.php";
 $comment = new comment();
 include "model/bills.php";
 $bill = new bill();
+include "model/thongke.php";
+$thongke = new thongke();
 ?>
 <!-- Controller chuyển trang được cung cấp layout từ view -->
 <!DOCTYPE html>

@@ -90,13 +90,7 @@ class product
     }
 
 
-    public function get_SumPrice()
-    {
-        $db = new connect();
-        $sql = "SELECT Sum(price) as 'TONG' FROM `products` ";
-        $result = $db->pdo_query_value($sql);
-        return $result;
-    }
+   
 
 
     public function add($name, $image, $view, $price, $status, $fk_categoryId, $fk_brandId, $size, $description, $dateUpdate)

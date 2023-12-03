@@ -87,19 +87,41 @@ class bill
         return $result;
     }
 
+    public function getBy_SumQuantity()
+    {
+        $db = new connect();
+        $sql = "SELECT SUM(quantity) AS 'TONGSOSP' FROM `billDetails` ";
+        $result = $db->pdo_query_value($sql);
+        return $result;
+    }
+
+    
+
     public function getBy_TopTotalBill_user()
     {
         $db = new connect();
-        $sql = "SELECT sum(totalBill) as 'TONGCUAUSER' , fk_userId, users.username FROM `bills`
-        INNER JOIN users on userId = fk_userId
-                WHERE fk_userId = (
-                SELECT fk_userId FROM bills 
-                    ORDER BY totalBill DESC LIMIT 1
-                ) GROUP BY  fk_userId
+        $sql = "SELECT US.username, Sum(totalBill) as 'TONGCUAUSER' FROM `users` US
+        INNER JOIN bills BI ON BI.fk_userId = US.userId
+        GROUP by US.username LIMIT 1
                 ";
         $result = $db->pdo_query($sql);
         return $result;
     }
 
-   
+    public function get_CountBillDay()
+    {
+        $db = new connect();
+        $sql = "SELECT MIN(DATE(dateCreated)) AS 'BD',MAX(DATE(dateCreated)) AS 'KT', DATEDIFF(MAX(DATE(dateCreated)) , MIN(DATE(dateCreated)))+1 AS 'TONGSONGAY' FROM `bills`  
+        ";
+        $result = $db->pdo_query_one($sql);
+        return $result;
+    }
+
+    public function get_bangcot()
+    {
+        $db = new connect();
+        $sql = "SELECT DATE(dateCreated) AS 'NGAY', SUM(totalBill) AS 'TONGTIEN', COUNT(billId) AS 'TONGSOLUOT' FROM `bills` GROUP BY DATE(dateCreated);";
+        $result = $db->pdo_query($sql);
+        return $result;
+    }
 }

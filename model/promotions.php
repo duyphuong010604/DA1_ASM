@@ -16,7 +16,7 @@ class promotion
     {
         $db = new connect();
         $sql = "SELECT * FROM promotions where
-        and name not like '%free%'";
+         name not like '%free%'";
         $result = $db->pdo_query($sql);
         return $result;
 

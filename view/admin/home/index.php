@@ -155,12 +155,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span>Giá trị kho</span>
+                                            <span class="fw-semibold d-block mb-1">Số sản phẩm đã bán</span>
                                             <?php
-                                            $SumProductPrice = $product->get_SumPrice();
+                                            $billSumQuantity = $bill->getBy_SumQuantity();
                                            
                                             ?>
-                                            <h4 class="card-title mb-1"><?= number_format($SumProductPrice)?> VNĐ</h4>
+                                            <h4 class="card-title mb-1"><?= $billSumQuantity?></h4>
                                             
                                         </div>
                                     </div>
@@ -227,7 +227,6 @@
                                                         foreach ($TotalUser as $item) :
                                                             extract($item);
                                                         ?>
-
                                                         <span class="badge bg-label-warning rounded-pill"><?=$username?></span>
                                                     </div>
                                                     <div class="mt-sm-auto">
